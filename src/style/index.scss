@@ -1,0 +1,31 @@
+$bg: #fff;
+
+page {
+  background-color: $bg;
+  -webkit-overflow-scrolling: touch;
+  font-size: 28rpx;
+  padding-top: var(--status-bar-height);
+  box-sizing: border-box;
+}
+
+.wd-popup {
+  background: $bg;
+}
+
+:root {
+  --wot-divider-margin: 14px;
+  --wot-input-fs: 10px;
+  --wot-input-fs-large: 14px;
+  --wot-input-cell-bg: none;
+  --wot-input-cell-padding: 0;
+  --wot-table-font-size: 10px;
+}
+
+// input
+.wd-input__label {
+  margin-right: 0 !important;
+  font-weight: bold;
+}
+.wd-input__body {
+  background: #fff;
+}

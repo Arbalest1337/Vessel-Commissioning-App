@@ -1,0 +1,23 @@
+{
+  "id": "5181676",
+  "name": "ERP",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "中智ERP",
+  "glyphs": [
+    {
+      "icon_id": "5140520",
+      "name": "包装",
+      "font_class": "package",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "41553851",
+      "name": "materialGroup",
+      "font_class": "material",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    }
+  ]
+}

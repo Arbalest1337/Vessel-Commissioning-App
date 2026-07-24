@@ -1,0 +1,25 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    # 1. 存放前端打包后静态文件的目录
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    # 2. 处理 Vue Router 路由 (History 模式)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /dev-api/ {
+        # 替换为你的后端实际地址和端口
+        # 如果你使用 docker-compose 部署，这里可以写成 http://后端容器名:端口/
+        proxy_pass ${API_URL}; 
+        # 传递客户端真实 IP 等头部信息给后端
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+}

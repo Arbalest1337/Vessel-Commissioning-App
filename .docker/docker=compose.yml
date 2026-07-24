@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # --- 前端服务 ---
+  erp-app:
+    build:
+      context: ../           # 构建上下文指向前端目录
+      dockerfile: .docker/Dockerfile # 指向该目录下的 Dockerfile 路径
+    container_name: erp-app
+    ports:
+      - "80:80"                     # 映射宿主机 80 到容器 80
+    restart: always
+    networks:
+      - app-network
+    
+   
+
+# 定义网络，实现服务间通信
+networks:
+  app-network:
+    driver: bridge
