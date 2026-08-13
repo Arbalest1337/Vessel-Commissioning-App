@@ -26,7 +26,7 @@ const processed = computed(() =>
   roles.value.map((item) => ({
     ...item,
     name: `${item.company.nameZh}  ${RoleMap[item.role]}`,
-    disabled: item.role !== Role["工程师"],
+    disabled: ![Role["工程师"], Role["工程师主管"].includes(item.role)],
   }))
 )
 
@@ -47,8 +47,8 @@ const onSelect = async ({ item }) => {
       companyMemberId: item.id,
     })
     open.value = false
-    uni.navigateTo({
-      url: "/pages/index/index",
+    uni.reLaunch({
+      url: "/pages/launch/index",
     })
   } finally {
     uni.hideLoading()

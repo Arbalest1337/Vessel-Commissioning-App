@@ -48,12 +48,7 @@
         <div>{{ item.value }}</div>
       </div>
     </div>
-    <div  class="mt-4 mx-8 text-center h-8 text-[#487EFF] leading-8">
-      <template v-if="[OrderStatus['已完成'].includes(order.status)]"
-        >详情</template
-      >
-      <template v-else>处理</template>
-    </div>
+    <div class="mt-4 mx-8 text-center h-8 text-[#487EFF] leading-8">详情</div>
   </div>
 </template>
 <script setup>
@@ -63,7 +58,6 @@ import { OrderStatus, OrderStatusMap } from "../../enum"
 import { storeToRefs } from "pinia"
 const userStore = useUserStore()
 const { userId } = storeToRefs(userStore)
-console.log(userStore.userId)
 
 const order = defineModel("order", { default: {} })
 
@@ -76,6 +70,10 @@ const cells = computed(() => [
     label: "工单类型",
     value: "调试单",
   },
+   {
+    label: "项目号",
+    value: order.value.projectNo,
+  },
   {
     label: "船号",
     value: order.value.hullNumber,
@@ -85,10 +83,9 @@ const cells = computed(() => [
     value: order.value.clientAddress,
   },
   {
-    label: "服务时间",
+    label: "调试时间",
     value: dayjs(order.value.estimatedStartAt).format("YYYY-MM-DD"),
   },
-
   {
     label: "产品",
     value: order.value.productSnapshots

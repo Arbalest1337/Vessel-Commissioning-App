@@ -1,4 +1,3 @@
-// 用户
 import request from "@/api/request"
 
 export default {
@@ -76,10 +75,10 @@ export default {
       url: `/order/reject-client-acceptance`,
       data,
     }),
-  updateEngineerPlateNumber: (data) =>
+  updateVehicle: (data) =>
     request({
       method: "PUT",
-      url: `/order/update-engineer-plate-number`,
+      url: `/order/update-vehicle`,
       data,
     }),
 

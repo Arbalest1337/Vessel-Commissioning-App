@@ -29,3 +29,11 @@ page {
 .wd-input__body {
   background: #fff;
 }
+
+.wd-segmented__item.is-active {
+  color: #00f !important;
+}
+
+.wd-step__icon,.wd-tabs__line {
+  z-index: 0 !important;
+}

@@ -19,7 +19,19 @@
 			}
 		},
 		{
-			"path": "pages/afterSales-detail/index",
+			"path": "pages/after-sales-detail/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/order-question/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/order-question/detail",
 			"style": {
 				"navigationStyle": "custom"
 			}
