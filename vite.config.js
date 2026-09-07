@@ -11,10 +11,15 @@ const serverConfig = {
   port: 5174,
   open: false,
   proxy: {
-    "/dev-api": {
-      target: "http://localhost:3003",
+    "/prod-api": {
+      target: "http://120.195.176.62:8801/prod-api",
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/dev-api/, ""),
+      rewrite: (path) => path.replace(/^\/prod-api/, ""),
+    },
+    "/s3-endpoint": {
+      target: "http://120.195.176.62:8800",
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/prod-api/, ""),
     },
   },
 }

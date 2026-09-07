@@ -2,8 +2,8 @@
   "name": "uni-preset-vue",
   "version": "0.0.0",
   "scripts": {
-    "docker:build": "docker build -t 192.168.10.102:5000/erp-app:dev -f .docker/Dockerfile .",
-    "docker:push": "docker push 192.168.10.102:5000/erp-app:dev",
+    "docker:build": "docker build -t 192.168.60.100:5000/tiaoshi-app:dev -f .docker/Dockerfile .",
+    "docker:push": "docker push 192.168.60.100:5000/tiaoshi-app:dev",
     "dev:app": "uni -p app",
     "build:app": "uni build -p app",
     "dev:custom": "uni -p",
