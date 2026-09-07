@@ -19,7 +19,7 @@ const serverConfig = {
     "/s3-endpoint": {
       target: "http://120.195.176.62:8800",
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/prod-api/, ""),
+      rewrite: (path) => path.replace(/^\/s3-endpoint/, ""),
     },
   },
 }

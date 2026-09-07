@@ -26,7 +26,7 @@ const { userId } = storeToRefs(userStore)
 
 const afterSales = ref([])
 const loading = ref(false)
-const cursor = computed(() => afterSales.value.at(-1)?.id)
+const cursor = computed(() => afterSales.value[afterSales.value.length-1]?.id)
 
 const params = ref({
   queryStatus: "all",

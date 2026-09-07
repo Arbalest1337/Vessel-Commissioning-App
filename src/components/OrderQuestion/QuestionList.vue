@@ -14,7 +14,7 @@ const orderId = defineModel("orderId", { default: "" })
 const loading = ref(false)
 
 const questions = defineModel("questions", { default: [] })
-const cursor = computed(() => questions.value.at(-1)?.id)
+const cursor = computed(() => questions.value[questions.value.length-1]?.id)
 
 const params = reactive({
   cursor,

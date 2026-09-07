@@ -57,6 +57,8 @@ const signatureRef = ref()
 watch(open, (v) => {
   if (!v) {
     clear()
+  } else {
+    signatureRef.value?.init()
   }
 })
 

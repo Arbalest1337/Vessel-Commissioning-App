@@ -73,21 +73,41 @@ export const uploadFileToUrl = async (
   try {
     // 1. 函数内部自动根据平台将临时路径转为二进制数据 (ArrayBuffer)
     let fileData
-    if (uni.getFileSystemManager) {
-      // App / 小程序端：通过文件系统管理器读取
-      fileData = await new Promise((resolve, reject) => {
-        uni.getFileSystemManager().readFile({
-          filePath: filePath,
-          success: (res) => resolve(res.data), // res.data 为 ArrayBuffer
-          fail: (err) => reject(err),
-        })
-      })
-    } else {
-      // H5 端：直接 fetch 读取 blob 路径
-      const res = await fetch(filePath)
-      fileData = await res.arrayBuffer()
-    }
+    // #ifdef H5
+    const res = await fetch(filePath)
+    fileData = await res.arrayBuffer()
+    // #endif
 
+    // #ifdef APP-PLUS
+    fileData = await new Promise((resolve, reject) => {
+      plus.io.resolveLocalFileSystemURL(
+        filePath,
+        (entry) => {
+          entry.file((file) => {
+            const reader = new plus.io.FileReader()
+
+            reader.onload = (e) => {
+              const base64Data = e.target.result
+              if (!base64Data) {
+                return reject(new Error("读取文件失败，内容为空"))
+              }
+              // 提取纯 Base64 内容并转为 ArrayBuffer
+              const base64 = base64Data.split(",")[1]
+              const arrayBuffer = uni.base64ToArrayBuffer(base64)
+              resolve(arrayBuffer)
+            }
+
+            reader.onerror = (err) => reject(err)
+
+            // ⚠️ 重点： App 端必须使用 readAsDataURL，不能用 readAsArrayBuffer
+            reader.readAsDataURL(file)
+          }, reject)
+        },
+        reject
+      )
+    })
+    // #endif
+    
     // 2. 发送 PUT 请求
     return new Promise((resolve, reject) => {
       uni.request({
@@ -120,7 +140,6 @@ export const uploadFileToUrl = async (
     throw error
   }
 }
-
 
 export const takePhoto = () => {
   return new Promise((resolve, reject) => {

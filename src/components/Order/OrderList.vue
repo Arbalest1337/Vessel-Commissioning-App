@@ -26,7 +26,7 @@ const { userId } = storeToRefs(userStore)
 
 const orders = ref([])
 const loading = ref(false)
-const cursor = computed(() => orders.value.at(-1)?.id)
+const cursor = computed(() => orders.value[orders.value.length-1]?.id)
 
 const params = ref({
   queryStatus: "all",

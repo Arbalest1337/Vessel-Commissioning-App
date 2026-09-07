@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from "vue"
+import { ref, onMounted, getCurrentInstance, nextTick } from "vue"
 import { toast } from "../../utils"
 
 const props = defineProps({
@@ -50,21 +50,40 @@ const lastPoint = ref(null)
 // 保存历史
 const history = ref([])
 
-onMounted(() => {
+const w = ref(0)
+const h = ref(0)
+
+const getSize = async () => {
+  return new Promise((resolve) => {
+    const query = uni.createSelectorQuery().in(instance)
+    query
+      .select(".signature-canvas")
+      .boundingClientRect((data) => {
+        if (data && data.width && data.height) {
+          w.value = data.width
+          h.value = data.height
+        }
+        resolve(data)
+      })
+      .exec()
+  })
+}
+
+const init = async () => {
+  await nextTick()
+  await getSize()
   ctx = uni.createCanvasContext("signatureCanvas", instance)
-
   ctx.setFillStyle("#ffffff")
-  ctx.fillRect(0, 0, props.width, props.height)
-
+  ctx.fillRect(0, 0, w.value, h.value)
   ctx.setLineWidth(props.lineWidth)
-
   ctx.setLineCap("round")
-
   ctx.setLineJoin("round")
-
   ctx.setStrokeStyle(props.color)
-
   ctx.draw()
+}
+
+onMounted(async () => {
+  init()
 })
 
 function getPoint(e) {
@@ -127,10 +146,10 @@ function saveHistory() {
 }
 
 function clear() {
-  ctx.clearRect(0, 0, props.width, props.height)
+  ctx.clearRect(0, 0, w.value, h.value)
 
   ctx.setFillStyle("#ffffff")
-  ctx.fillRect(0, 0, props.width, props.height)
+  ctx.fillRect(0, 0, w.value, h.value)
 
   ctx.draw()
 
@@ -148,7 +167,7 @@ function undo() {
 
   const img = history.value[history.value.length - 1]
 
-  ctx.drawImage(img, 0, 0, props.width, props.height)
+  ctx.drawImage(img, 0, 0, w.value, h.value)
 
   ctx.draw()
 }
@@ -175,6 +194,7 @@ function save() {
 }
 
 defineExpose({
+  init,
   clear,
   save,
   undo,
