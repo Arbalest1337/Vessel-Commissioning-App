@@ -26,10 +26,10 @@ const cells = computed(() => [
   { label: "调试地址", value: order.value?.clientAddress },
   {
     label: "客户联系人",
-    value:
-      order.value?.clientContact?.user?.nickname +
-      " " +
-      order.value?.clientContact?.user?.phone,
+
+    value: order.value?.clientContacts
+      ?.map((item) => item?.user?.nickname + "" + item?.user?.phone)
+      .join("，"),
   },
   { label: "服务商", value: order.value?.providerSnapshot?.nameZh },
   {

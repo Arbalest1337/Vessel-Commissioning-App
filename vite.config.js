@@ -8,17 +8,20 @@ import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer"
 const serverConfig = {
   host: "0.0.0.0",
-  port: 5174,
+  port: 5175,
   open: false,
   proxy: {
     "/prod-api": {
-      target: "http://120.195.176.62:8801/prod-api",
+      // target: "http://221.131.73.82:8801/prod-api",
+      target: "http://192.168.10.12:3000",
+
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/prod-api/, ""),
     },
     "/s3-endpoint": {
-      target: "http://120.195.176.62:8800",
-      changeOrigin: true,
+      // target: "http://221.131.73.82:8800",
+      target: "http://192.168.10.12:9000",
+       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/s3-endpoint/, ""),
     },
   },
