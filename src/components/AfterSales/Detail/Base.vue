@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-3">
       <div v-for="item in cells" class="flex flex-nowrap gap-8">
         <div class="shrink-0 grow-0">{{ item.label }}：</div>
-        <div class="ml-auto text-right">{{ item.value }}</div>
+        <div class="ml-auto text-right whitespace-pre">{{ item.value }}</div>
       </div>
     </div>
   </div>
@@ -26,9 +26,8 @@ const cells = computed(() => [
   { label: "调试地址", value: order.value?.clientAddress },
   {
     label: "客户联系人",
-    value: order.value?.clientContacts
-      ?.map((item) => item?.user?.nickname + " " + item?.user?.phone)
-      .join("，"),
+    value: order.value?.clientContactInfo
+    
   },
   { label: "服务商", value: order.value?.providerSnapshot?.nameZh },
   {
